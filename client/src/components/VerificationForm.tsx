@@ -2,6 +2,8 @@ import React, { useRef, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
+const baseUrl = "https://otp-verification-8mfl.onrender.com";
+
 function VerificationForm() {
   const [code, setCode] = useState<string[]>(Array(6).fill(""));
   const [codeError, setCodeError] = useState<boolean[]>(Array(6).fill(false));
@@ -95,7 +97,7 @@ function VerificationForm() {
     const verificationCode = code.join("");
     if (!validateData()) return;
     axios
-      .post("http://localhost:5000/verify-code", { verificationCode })
+      .post(baseUrl + "/verify-code", { verificationCode })
       .then((res) => {
         setError(res.data.message);
         navigate("/success")
